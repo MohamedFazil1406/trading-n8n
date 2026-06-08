@@ -1,159 +1,243 @@
-# Turborepo starter
+# Trading Workflow Automation Platform
 
-This Turborepo starter is maintained by the Turborepo core team.
+A visual workflow automation platform inspired by n8n that allows users to create, manage, and execute trading workflows using drag-and-drop nodes.
 
-## Using this example
+## Features
 
-Run the following command:
+* User Authentication (JWT)
+* Create and Manage Workflows
+* Visual Workflow Builder using React Flow
+* Trigger Nodes
 
-```sh
-npx create-turbo@latest
+  * Timer Trigger
+  * Price Trigger
+* Action Nodes
+
+  * Hyperliquid
+  * Backpack
+  * Lighter
+* Workflow Execution Tracking
+* MongoDB Database Integration
+* REST API Backend
+* TypeScript Support
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React
+* TypeScript
+* React Flow
+* Axios
+* Tailwind CSS
+* React Router
+
+### Backend
+
+* Node.js
+* Express.js
+* TypeScript
+* MongoDB
+* Mongoose
+* JWT Authentication
+* Zod Validation
+
+---
+
+## Project Structure
+
+```bash
+apps/
+├── Backend/
+│   ├── index.ts
+│   ├── middleware.ts
+│   ├── db.ts
+│   └── routes
+│
+├── Frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── nodes/
+│   │   ├── pages/
+│   │   ├── lib/
+│   │   └── App.tsx
+│
+packages/
+└── common/
 ```
 
-## What's inside?
+## Installation
 
-This Turborepo includes the following packages/apps:
+### Clone Repository
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```bash
+git clone https://github.com/your-username/trading-workflow.git
+cd trading-workflow
 ```
 
-Without global `turbo`, use your package manager:
+### Install Dependencies
 
-```sh
-cd my-turborepo
-npx turbo build
-bun dlx turbo build
-bun exec turbo build
+```bash
+bun install
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+or
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
+```bash
+npm install
 ```
 
-Without global `turbo`:
+---
 
-```sh
-npx turbo build --filter=docs
-bun exec turbo build --filter=docs
-bun exec turbo build --filter=docs
+## Environment Variables
+
+### Backend
+
+Create `.env`
+
+```env
+MONGO_URL=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+PORT=3000
 ```
 
-### Develop
+### Frontend
 
-To develop all apps and packages, run the following command:
+Create `.env`
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
+```env
+VITE_API_URL=http://localhost:3000
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo dev
-bun exec turbo dev
-bun exec turbo dev
+## Running the Project
+
+### Backend
+
+```bash
+cd apps/Backend
+bun run dev
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+### Frontend
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
+```bash
+cd apps/Frontend
+bun run dev
 ```
 
-Without global `turbo`:
+---
 
-```sh
-npx turbo dev --filter=web
-bun exec turbo dev --filter=web
-bun exec turbo dev --filter=web
+## API Endpoints
+
+### Authentication
+
+#### Signup
+
+```http
+POST /signup
 ```
 
-### Remote Caching
+#### Signin
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
+```http
+POST /signin
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo login
-bun exec turbo login
-bun exec turbo login
+### Workflows
+
+#### Create Workflow
+
+```http
+POST /workflow
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+#### Update Workflow
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
+```http
+PUT /workflow/:workflowId
 ```
 
-Without global `turbo`:
+#### Get Workflow
 
-```sh
-npx turbo link
-bun exec turbo link
-bun exec turbo link
+```http
+GET /workflow/:workflowId
 ```
 
-## Useful Links
+#### List Workflows
 
-Learn more about the power of Turborepo:
+```http
+GET /workflows
+```
 
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+---
+
+### Executions
+
+#### List Workflow Executions
+
+```http
+GET /workflow/executions/:workflowId
+```
+
+---
+
+## Example Workflow Payload
+
+```json
+{
+  "nodes": [
+    {
+      "nodeId": "6a262bc1ffdabfe7114281a3",
+      "id": "1",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "data": {
+        "kind": "TRIGGER",
+        "metadata": {
+          "time": 5
+        }
+      }
+    }
+  ],
+  "edges": []
+}
+```
+
+---
+
+## Authentication
+
+Protected routes require:
+
+```http
+Authorization: Bearer <jwt_token>
+```
+
+---
+
+## Future Improvements
+
+* Workflow Scheduler
+* Real-time Workflow Execution
+* Webhook Trigger Support
+* Retry Mechanism
+* Workflow Versioning
+* Node Marketplace
+* Docker Deployment
+* Kubernetes Support
+
+---
+
+## Author
+
+Mohamed Fazil
+
+Built with ❤️ using React, TypeScript, Express, MongoDB, and React Flow.
